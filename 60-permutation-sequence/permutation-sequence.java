@@ -1,28 +1,28 @@
 class Solution {
-    String res="";
-    int count=0;
     public String getPermutation(int n, int k) {
-        boolean[] used=new boolean[n+1];
-        answer(n,k,new StringBuilder(),used);
-        return res;
-    }
+        List<Integer> nums = new ArrayList<>();
+        int fact = 1;
 
-     void answer(int n, int k, StringBuilder path, boolean[] used){
-        if(n==path.length()){
-            count++;
-            if(count==k){
-                res=path.toString();
-            }
-            return;
+        // Step 1: Create the numbers list and calculate factorial of n
+        for (int i = 1; i <= n; i++) {
+            nums.add(i);
+            fact *= i;
         }
 
-        for(int i=1;i<=n;i++){
-            if(used[i]) continue;
-            used[i]=true;
-            path.append(i);
-            answer(n,k,path,used);
-            path.deleteCharAt(path.length() - 1);
-            used[i]=false;
+        // Step 2: Adjust k to be zero-based
+        k--;
+
+        StringBuilder ans = new StringBuilder();
+
+        // Step 3: Recursively build answer
+        for (int i = 0; i < n; i++) {
+            fact = fact / (n - i); // update block size
+            int index = k / fact;  // which block we are in
+            ans.append(nums.get(index)); // pick the number
+            nums.remove(index); // remove from list
+            k = k % fact; // update k to new subproblem
         }
+
+        return ans.toString();
     }
 }
