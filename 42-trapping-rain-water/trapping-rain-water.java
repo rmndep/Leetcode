@@ -1,6 +1,6 @@
 class Solution {
-    public int trap(int[] height) {
-        int res = 0;
+    public int trap(int[] nums) {
+        //int res = 0;
 
         // for (int i = 1; i < height.length - 1; i++) {
 
@@ -17,22 +17,45 @@ class Solution {
 
         // return res;
 
-        int[] left=new int[height.length];
-        int[] right=new int[height.length];
+        // int[] left=new int[height.length];
+        // int[] right=new int[height.length];
 
-         left[0]=height[0];
-         right[height.length-1]=height[height.length-1];
-        for(int i=1;i<height.length;i++){
-            left[i]=Math.max(height[i],left[i-1]);
-        }
+        //  left[0]=height[0];
+        //  right[height.length-1]=height[height.length-1];
+        // for(int i=1;i<height.length;i++){
+        //     left[i]=Math.max(height[i],left[i-1]);
+        // }
 
-        for(int i=height.length-2;i>=0;i--){
-            right[i]=Math.max(height[i],right[i+1]);
-        }
+        // for(int i=height.length-2;i>=0;i--){
+        //     right[i]=Math.max(height[i],right[i+1]);
+        // }
 
-        for(int i=1;i<height.length-1;i++){
-            res+=Math.min(left[i],right[i])-height[i];
+        // for(int i=1;i<height.length-1;i++){
+        //     res+=Math.min(left[i],right[i])-height[i];
+        // }
+        // return res;
+
+        int left=0;
+        int right=nums.length-1;
+        int total=0;
+
+        int leftM=nums[0];
+        int rightM=nums[right];
+        while(left<right){
+            if(nums[left]<nums[right]){
+                leftM=Math.max(leftM,nums[left]);
+                if(leftM-nums[left]>0){
+                    total=total+leftM-nums[left];
+                }
+                left++;
+            }else{
+                rightM=Math.max(rightM,nums[right]);
+                if(rightM-nums[right]>0){
+                    total+=rightM-nums[right];
+                }
+                right--;
+            }
         }
-        return res;
+        return total;
     }
 }
