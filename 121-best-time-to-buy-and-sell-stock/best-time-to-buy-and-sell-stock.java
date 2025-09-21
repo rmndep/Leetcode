@@ -17,7 +17,10 @@ class Solution {
         int res = 0;
 
         for (int i = 1; i < prices.length; i++) {
-            minSoFar = Math.min(minSoFar, prices[i]);
+           // minSoFar = Math.min(minSoFar, prices[i]);
+           if(minSoFar>prices[i]){
+            minSoFar=prices[i];
+           }
                          
             res = Math.max(res, prices[i] - minSoFar);
         }
