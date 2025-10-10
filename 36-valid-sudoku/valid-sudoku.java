@@ -1,34 +1,35 @@
 class Solution {
     public boolean isValidSudoku(char[][] board) {
-        int N=9;
-        HashSet<Character>[] rows=new HashSet[9];
-        HashSet<Character>[] cols=new HashSet[9];
-        HashSet<Character>[] boxes=new HashSet[9];
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j]=='.') continue;
+                char num=board[i][j];
+                board[i][j]='.';
+                if(!isValid(board,i,j,num)) return false;
+                board[i][j]=num;
+            }
+        }
+        return true;
+    }
 
-        for(int r=0;r<N;r++){
-            rows[r]=new HashSet<>();
-            cols[r]=new HashSet<>();
-            boxes[r]=new HashSet<>();
+    public boolean isValid(char[][] board,int row,int col, char num){
+        //check row
+        //int n=board.length;
+        for(int j=0;j<9;j++){
+            if(board[row][j]==num) return false;
         }
 
-        for(int r=0;r<N;r++){
-            for(int c=0;c<N;c++){
-                char val=board[r][c];
-                if(val=='.') continue;
-                if(rows[r].contains(val)){
-                    return false;
-                }
-                rows[r].add(val);
-                if(cols[c].contains(val)){
-                    return false;
-                }
-                cols[c].add(val);
+        // check col
+        for(int i=0;i<9;i++){
+            if(board[i][col]==num) return false;
+        }
 
-                int idx=(r/3)*3+(c/3);
-                if(boxes[idx].contains(val)){
-                    return false;
-                }
-                boxes[idx].add(val);
+        //check 3x3 grid
+        int sRow=row/3*3;
+        int sCol=col/3*3;
+        for(int i=sRow;i<sRow+3;i++){
+            for(int j=sCol;j<sCol+3;j++){
+                if(board[i][j]==num) return false;
             }
         }
         return true;
