@@ -12,9 +12,13 @@ class Solution {
             }
         }
         StringBuilder sb=new StringBuilder(st.size());
-        while(st.size()>0){
-            sb.append(st.pop());
+        // while(st.size()>0){
+        //     sb.append(st.pop());
+        // }
+        // return sb.reverse().toString();
+        for(char c:st){
+            sb.append(c);
         }
-        return sb.reverse().toString();
+        return sb.toString();
     }
 }
